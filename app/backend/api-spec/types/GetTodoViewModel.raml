@@ -1,1 +1,17 @@
 #%RAML 1.0 DataType
+
+GetTodoViewModel:
+    type: object
+    additionalProperties: false
+    properties:
+      id?:
+        type: string
+      completed?:
+        type: boolean
+      order?:
+        type: number
+        format: int32
+      title?:
+        type: string | nil
+      url?:
+        type: string | nil
