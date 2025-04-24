@@ -1,5 +1,5 @@
 {
   "dependencies": [],
   "name": "todomvc-api",
-  "main": "app/backend/todomvc-api.raml"
+  "main": "app/backend/api-spec/todomvc-api.raml"
 }
