@@ -1,14 +1,8 @@
 #%RAML 1.0
 types:
   ErrorViewModel:
-    type: object
+    type: !include types/ErrorViewModel.raml
     additionalProperties: false
-    properties:
-      errorCode?:
-        type: number
-        format: int32
-      errorMessage?:
-        type: string | nil
   ValidationErrorsViewModel:
     type: object
     additionalProperties: false
