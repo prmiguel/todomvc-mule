@@ -25,14 +25,8 @@ types:
       id?:
         type: id | nil
   GetTodoViewModelPagedResultViewModel:
-    type: object
+    type: !include types/GetTodoViewModelPagedResultViewModel.raml
     additionalProperties: false
-    properties:
-      count?:
-        type: number
-        format: int32
-      data?:
-        type: data | nil
   ValidationErrorViewModel:
     type: object
     additionalProperties: false
@@ -275,9 +269,7 @@ version: v1
       "200":
         description: Success
         body:
-          text/plain: GetTodoViewModelPagedResultViewModel
           application/json: GetTodoViewModelPagedResultViewModel
-          text/json: GetTodoViewModelPagedResultViewModel
 /api/v1/todo/{id}:
   delete:
     (amf-tags):
