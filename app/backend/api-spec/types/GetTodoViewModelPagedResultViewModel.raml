@@ -1,1 +1,9 @@
 #%RAML 1.0 DataType
+
+properties:
+  count:
+    type: number
+    format: int32
+  data:
+    type: array
+    items: !include types/GetTodoViewModel.raml
