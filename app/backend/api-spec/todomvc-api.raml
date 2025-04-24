@@ -25,15 +25,8 @@ types:
       id?:
         type: id | nil
   GetTodoViewModelPagedResultViewModel:
-    type: object
+    type: !include types/GetTodoViewModelPagedResultViewModel.raml
     additionalProperties: false
-    properties:
-      count:
-        type: number
-        format: int32
-      data:
-        type: array
-        items: !include types/GetTodoViewModel.raml
   ValidationErrorViewModel:
     type: object
     additionalProperties: false
