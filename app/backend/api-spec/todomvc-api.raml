@@ -19,7 +19,7 @@ types:
       errorMessages?:
         type: errorMessages | nil
   GetTodoViewModel:
-    type: object
+    type: !include GetTodoViewModel.raml
     additionalProperties: false
     properties:
       id?:
