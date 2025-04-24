@@ -21,18 +21,6 @@ types:
   GetTodoViewModel:
     type: !include types/GetTodoViewModel.raml
     additionalProperties: false
-    properties:
-      id?:
-        type: string
-      completed?:
-        type: boolean
-      order?:
-        type: number
-        format: int32
-      title?:
-        type: string | nil
-      url?:
-        type: string | nil
   data:
     type: array
     items: GetTodoViewModel
