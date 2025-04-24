@@ -32,7 +32,8 @@ types:
         type: number
         format: int32
       data?:
-        type: data | nil
+        type: array
+        items: GetTodoViewModel
   ValidationErrorViewModel:
     type: object
     additionalProperties: false
