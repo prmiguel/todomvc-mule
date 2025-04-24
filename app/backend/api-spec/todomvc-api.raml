@@ -15,6 +15,9 @@ types:
   GetTodoViewModel:
     type: !include types/GetTodoViewModel.raml
     additionalProperties: false
+  data:
+    type: array
+    items: GetTodoViewModel
   CommandResultViewModel:
     type: object
     additionalProperties: false
@@ -29,8 +32,7 @@ types:
         type: number
         format: int32
       data?:
-        type: array
-        items: GetTodoViewModel
+        type: data | nil
   ValidationErrorViewModel:
     type: object
     additionalProperties: false
