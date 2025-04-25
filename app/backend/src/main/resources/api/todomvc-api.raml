@@ -1,14 +1,8 @@
 #%RAML 1.0
 types:
   ErrorViewModel:
-    type: object
+    type: !include types/ErrorViewModel.raml
     additionalProperties: false
-    properties:
-      errorCode?:
-        type: number
-        format: int32
-      errorMessage?:
-        type: string | nil
   ValidationErrorsViewModel:
     type: object
     additionalProperties: false
@@ -19,20 +13,8 @@ types:
       errorMessages?:
         type: errorMessages | nil
   GetTodoViewModel:
-    type: object
+    type: !include types/GetTodoViewModel.raml
     additionalProperties: false
-    properties:
-      id?:
-        type: string
-      completed?:
-        type: boolean
-      order?:
-        type: number
-        format: int32
-      title?:
-        type: string | nil
-      url?:
-        type: string | nil
   data:
     type: array
     items: GetTodoViewModel
@@ -43,14 +25,8 @@ types:
       id?:
         type: id | nil
   GetTodoViewModelPagedResultViewModel:
-    type: object
+    type: !include types/GetTodoViewModelPagedResultViewModel.raml
     additionalProperties: false
-    properties:
-      count?:
-        type: number
-        format: int32
-      data?:
-        type: data | nil
   ValidationErrorViewModel:
     type: object
     additionalProperties: false
@@ -293,9 +269,7 @@ version: v1
       "200":
         description: Success
         body:
-          text/plain: GetTodoViewModelPagedResultViewModel
           application/json: GetTodoViewModelPagedResultViewModel
-          text/json: GetTodoViewModelPagedResultViewModel
 /api/v1/todo/{id}:
   delete:
     (amf-tags):

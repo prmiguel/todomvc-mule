@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
 http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
     <http:listener-config name="todomvc-api-httpListenerConfig">
          <http:listener-connection host="0.0.0.0" port="8081" />
      </http:listener-config>
      <apikit:config name="todomvc-api-config" api="todomvc-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+     <db:config name="DatabaseConfig" doc:name="Database Config" doc:id="abbb126b-0773-4922-a300-aebf95e8a892" >
+		<db:generic-connection url="jdbc:postgresql://localhost:5432/todomvc" driverClassName="org.postgresql.Driver" user="postgres" password="password" />
+	</db:config>
 </mule>
