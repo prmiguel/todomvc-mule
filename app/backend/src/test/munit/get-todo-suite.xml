@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<munit:config name="get-todo-suite.xml" />
+	<munit:test name="get-todo-suite-get:\api\v1\todo:todomvc-api-configTest" doc:id="538578e6-f398-4c6d-b50b-0a2eb69211ff" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\api\v1\todo:todomvc-api-config" doc:id="4669c327-8710-44b7-a6aa-035be455f3d8" name="get:\api\v1\todo:todomvc-api-config"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that Response Payload is not null" doc:id="8e272d6e-6b50-42c4-815f-898c9f18a786" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+			<munit-tools:assert-that doc:name="Assert that Response Payload contains 3 items" doc:id="e2201d1b-7eb9-4099-89d1-8f415fe7272d" is='#[MunitTools::equalTo(3)]' expression="#[payload.count]"/>
+			<munit-tools:assert-that doc:name="Assert that Response Payload contain a provided Id" doc:id="de73ba28-27f6-4740-b8c9-93360eb64a0d" expression='#[payload.^raw as String]' is='#[MunitTools::containsString("d39f1574-357a-494e-9364-8280049188b6")]'/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
