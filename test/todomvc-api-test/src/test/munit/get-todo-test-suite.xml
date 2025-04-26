@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit"
+	xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<munit:config name="get-todo-test-suite.xml" />
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="23a4eec2-9dd7-4539-a5dd-fcd2f9c4e428" basePath="/api/api/v1" >
+		<http:request-connection host="localhost" port="8081" />
+	</http:request-config>
+	<munit:test name="get-todo-test-suiteTest" doc:id="a515d6bf-4d41-41a8-97b8-cda674fc4834" >
+		<munit:execution >
+			<http:request method="GET" doc:name="Get /todo" doc:id="df183a1c-4651-4979-9513-57ef8bf0b607" config-ref="HTTP_Request_configuration" path="/todo">
+				<http:body ><![CDATA[payload]]></http:body>
+			</http:request>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Check statusCode = 200" doc:id="b6c27366-af39-4443-bf6d-40f6c1c5f0f9" is="#[MunitTools::equalTo(200)]" expression="#[message.attributes.statusCode]" />
+			<munit-tools:assert-that doc:name="Check response has content" doc:id="a5945952-7985-405f-8425-bce4db24dc78" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+			<logger level="INFO" doc:name="Log payload" doc:id="6f2bd954-968b-4e62-ab26-ee27a9cd0612" message="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+</mule>
