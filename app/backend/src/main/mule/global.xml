@@ -14,6 +14,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
      </http:listener-config>
      <apikit:config name="todomvc-api-config" api="todomvc-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
      <db:config name="DatabaseConfig" doc:name="Database Config" doc:id="abbb126b-0773-4922-a300-aebf95e8a892" >
-		<db:generic-connection url="jdbc:postgresql://localhost:5432/todomvc" driverClassName="org.postgresql.Driver" user="postgres" password="password" />
+		<db:generic-connection url="jdbc:postgresql://db:5432/todomvc" driverClassName="org.postgresql.Driver" user="postgres" password="password" />
 	</db:config>
 </mule>

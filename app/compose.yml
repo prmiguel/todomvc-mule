@@ -17,3 +17,8 @@ services:
     restart: always
     ports:
       - 9080:8080
+
+  backend:
+    image: todomvc-mule
+    ports:
+      - 8081:8081
