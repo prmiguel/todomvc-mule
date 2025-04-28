@@ -1,3 +1,7 @@
 exchange_modules/
 .exchange_modules_tmp/
 /.metadata/
+.metadata
+.mule
+.tooling
+.tooling-apps-cache
