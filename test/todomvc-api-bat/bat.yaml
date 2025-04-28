@@ -1,10 +1,10 @@
 suite:
   name: "TodoMVC API Suite"
 files:
-  - file: tests/HelloWorld.dwl
+  - file: tests/GET_todo.dwl
 reporters:
     - type: HTML
-      outFile: /tmp/HTML.html
+      outFile: /test/result.html
   # - type: SumoLogic
   #   options:
   #     SUMO_ENDPOINT: <sumo_source>
