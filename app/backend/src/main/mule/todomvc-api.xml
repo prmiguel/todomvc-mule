@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd  http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
-    <flow name="todomvc-api-main">
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd  http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	<flow name="todomvc-api-main">
         <http:listener config-ref="todomvc-api-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
@@ -155,12 +156,12 @@ output application/json
         <logger level="INFO" message="patch:\api\v1\todo\(id):text\json:todomvc-api-config" />
     </flow>
     <flow name="get:\api\v1\todo:todomvc-api-config">
-        <db:select doc:name="Select" doc:id="6ba7f559-2167-4e14-a36f-d7bf0ae0812a" config-ref="DatabaseConfig">
+		<db:select doc:name="Select" doc:id="6ba7f559-2167-4e14-a36f-d7bf0ae0812a" config-ref="DatabaseConfig">
             <db:sql><![CDATA[SELECT * FROM "Todos" LIMIT 50]]></db:sql>
         </db:select>
-        <ee:transform doc:name="Transform Message" doc:id="c4bd6b17-49e6-4c18-8e04-45093e1b9f5c">
+		<ee:transform doc:name="Transform Message" doc:id="c4bd6b17-49e6-4c18-8e04-45093e1b9f5c">
             <ee:message>
-                <ee:set-payload><![CDATA[%dw 2.0
+				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
 ---
 {
@@ -169,13 +170,56 @@ output application/json
 		completed: payload01.Completed,
 		title: payload01.Title,
 		url: null,
-		order: payload01.Order
+		order: payload01.Order,
+		source: "db"
 	},
 	count: sizeOf(payload)
 }]]></ee:set-payload>
             </ee:message>
+			<ee:variables />
         </ee:transform>
-        <logger level="INFO" message="get:\api\v1\todo:todomvc-api-config" />
+		<set-variable value="#[message.payload.data]" doc:name="DB Rrecords" doc:id="9e57bc85-9f23-4cbf-91fe-a8c2ab4f32da" variableName="db"/>
+		<http:request method="GET" doc:name="GET Thrid Party TodoMVC API" doc:id="270ef9ae-d2a1-4732-b234-9070dc5382aa" path="/todo" config-ref="Third_Party_TodoMVC_API_Configuration"/>
+		<ee:transform doc:name="Transform Message" doc:id="34c6ca43-4494-4071-aafa-6e5d709e3b1a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload map ((item, index) -> item ++ {
+	source: "api"
+})]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[message.payload]" doc:name="API Records" doc:id="434fe0ac-d13c-4fe4-9967-64c7d8b26e21" variableName="api"/>
+		<http:request method="GET" doc:name="GET TodoMVC CSV" doc:id="fd5cc9f6-9c24-4153-85eb-3bd639e55f43" config-ref="GitHub_Raw_CSV_Configuration" path="/todo.csv" outputMimeType="text/csv"/>
+		<ee:transform doc:name="Transform Message" doc:id="17f7eb12-e4b1-410b-91f7-bc0258648dca" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import * from dw::util::Coercions
+output application/json
+---
+payload map ((item, index) -> {
+	"id": item.id,
+	"order": toNumber(item.order),
+	"title": item.title,
+	"completed": toBoolean(item.completed),
+	"url": null,
+	source: "csv"
+})]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[payload]" doc:name="CSV Records" doc:id="5bb4b28f-9f80-4155-8544-b6e0dcd8e836" variableName="csv"/>
+		<ee:transform doc:name="Transform Message" doc:id="54565dcd-954f-4b21-89b8-8bb929a5ebfc" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var temp = vars.db ++ vars.api
+var payload = temp ++ vars.csv
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" message="#[vars]" />
     </flow>
     <flow name="get:\api\v1\todo\(id):todomvc-api-config">
         <ee:transform doc:name="Transform Message">
