@@ -14,7 +14,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
      </http:listener-config>
      <apikit:config name="todomvc-api-config" api="todomvc-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
      <db:config name="DatabaseConfig" doc:name="Database Config" doc:id="abbb126b-0773-4922-a300-aebf95e8a892" >
-		<db:generic-connection url="jdbc:postgresql://192.168.0.19:5432/todomvc" driverClassName="org.postgresql.Driver" user="postgres" password="password" />
+		<db:generic-connection url="jdbc:postgresql://db:5432/todomvc" driverClassName="org.postgresql.Driver" user="postgres" password="password" />
 	</db:config>
 	<http:request-config name="Third_Party_TodoMVC_API_Configuration" doc:name="HTTP Request configuration" doc:id="4ac1714d-ac20-40d0-99f6-1618512e3dfb" basePath="/api/v1" >
 		<http:request-connection protocol="HTTPS" host="csharp-todo-backend.azurewebsites.net" />

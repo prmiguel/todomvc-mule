@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    parameters {
+        string(
+            name: 'BACKEND_BASE_URL', 
+            defaultValue: 'https://csharp-todo-backend.azurewebsites.net', 
+            description: 'The backend base URL:\n\t- https://csharp-todo-backend.azurewebsites.net\n\t- http://192.168.0.110:9081')
+    }
+    options {
+        timeout(time: 5, unit: 'MINUTES')
+    }
+    environment {
+        BACKEND_BASE_URL = "${params.BACKEND_BASE_URL}"
+    }
+    stages {
+        stage("Run Backend Tests") {
+            steps {
+                sh '''
+                docker run -t \
+                -e TEST_api:baseUrl=$BACKEND_BASE_URL \
+                -v ci_jenkins_home:/jenkins_home \
+                --user root \
+                --entrypoint="" \
+                todomvc-test:latest \
+                dotnet test --no-restore --no-build --logger:"html;LogFileName=index.html" --results-directory:/jenkins_home/jobs/test-backend-run/workspace/test_report Todo.Backend.RestAssured.Test.dll
+                '''
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './test_report', reportFiles: 'index.html', reportName: 'Backend Tests', reportTitles: '', useWrapperFileDirectly: true])
+            }
+        }
+    }
+}

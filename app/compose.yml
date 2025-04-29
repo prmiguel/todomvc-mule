@@ -1,7 +1,7 @@
 services:
 
   db:
-    image: postgres
+    image: todomvc-db
     restart: always
     shm_size: 128mb
     environment:
@@ -9,8 +9,6 @@ services:
       POSTGRES_DB: todomvc
     ports:
         - '5432:5432'
-    volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   adminer:
     image: adminer

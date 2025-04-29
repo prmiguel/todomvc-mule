@@ -178,7 +178,7 @@ output application/json
             </ee:message>
 			<ee:variables />
         </ee:transform>
-		<set-variable value="#[message.payload.data]" doc:name="DB Rrecords" doc:id="9e57bc85-9f23-4cbf-91fe-a8c2ab4f32da" variableName="db"/>
+ 		<set-variable value="#[message.payload.data]" doc:name="DB Rrecords" doc:id="9e57bc85-9f23-4cbf-91fe-a8c2ab4f32da" variableName="db"/>
 		<http:request method="GET" doc:name="GET Thrid Party TodoMVC API" doc:id="270ef9ae-d2a1-4732-b234-9070dc5382aa" path="/todo" config-ref="Third_Party_TodoMVC_API_Configuration"/>
 		<ee:transform doc:name="Transform Message" doc:id="34c6ca43-4494-4071-aafa-6e5d709e3b1a" >
 			<ee:message >
