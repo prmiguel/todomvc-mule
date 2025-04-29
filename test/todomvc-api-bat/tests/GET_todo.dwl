@@ -5,7 +5,7 @@ suite("GET /todo suite") in [
   it must 'answer 200' in [
     GET `$(config.url)` with {} assert [
       $.response.status mustEqual 200,
-      $.response.body.count mustEqual 1
+      $.response.body.count mustEqual 2
     ] execute [
      log('Configuration:', config.env),
      log('Body:', $.response.body)

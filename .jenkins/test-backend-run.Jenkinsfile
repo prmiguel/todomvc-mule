@@ -26,8 +26,12 @@ pipeline {
                 todomvc-api-bat \
                 /root/.bat/bat/bin/bat --config=qax
                 '''
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './test/todomvc-api-bat', reportFiles: 'result.html', reportName: 'Backend Tests', reportTitles: '', useWrapperFileDirectly: true])
             }
+        }
+    }
+    post {
+        always {
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './test/todomvc-api-bat', reportFiles: 'index.html', reportName: 'Backend_Tests', reportTitles: '', useWrapperFileDirectly: true])
         }
     }
 }
