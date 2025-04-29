@@ -19,12 +19,14 @@ pipeline {
                 docker run -t \
                 -e TEST_api:baseUrl=$BACKEND_BASE_URL \
                 -v ci_jenkins_home:/jenkins_home \
+                --network app_default \
                 --user root \
                 --entrypoint="" \
-                todomvc-test:latest \
-                dotnet test --no-restore --no-build --logger:"html;LogFileName=index.html" --results-directory:/jenkins_home/jobs/test-backend-run/workspace/test_report Todo.Backend.RestAssured.Test.dll
+                -w /jenkins_home/jobs/test-backend-run/workspace/test/todomvc-api-bat \
+                todomvc-api-bat \
+                /root/.bat/bat/bin/bat --config=qax
                 '''
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './test_report', reportFiles: 'index.html', reportName: 'Backend Tests', reportTitles: '', useWrapperFileDirectly: true])
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './test/todomvc-api-bat', reportFiles: 'result.html', reportName: 'Backend Tests', reportTitles: '', useWrapperFileDirectly: true])
             }
         }
     }
