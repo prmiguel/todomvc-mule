@@ -1,8 +1,8 @@
 FROM openjdk:17-jdk-buster AS runner
 RUN apt install unzip
 WORKDIR /app
-RUN curl -OL https://repository.mulesoft.org/nexus/content/repositories/public/org/mule/distributions/mule-standalone/4.9.5-SNAPSHOT/mule-standalone-4.9.5-20250425.193653-1.zip
-RUN unzip mule-standalone-4.9.5-20250425.193653-1.zip \
-    && rm mule-standalone-4.9.5-20250425.193653-1.zip \
-    && mv mule-standalone-4.9.5-SNAPSHOT mule
+RUN curl -OL https://repository.mulesoft.org/nexus/content/repositories/public/org/mule/distributions/mule-standalone/4.9.2-SNAPSHOT/mule-standalone-4.9.2-20250219.180541-18.zip
+RUN unzip mule-standalone-4.9.2-20250219.180541-18.zip \
+    && rm mule-standalone-4.9.2-20250219.180541-18.zip \
+    && mv mule-standalone-4.9.2-SNAPSHOT mule
 CMD [ "/app/mule/bin/mule"]
