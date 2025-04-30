@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh '''
                 docker build -f app/db/Dockerfile -t todomvc-db app/db
-                docker build -f app/backend/Dockerfile -t todomvc-backend:latest app/backend
+                docker build -f app/backend/Dockerfile -t todomvc-mule app/backend
                 '''
             }
         }
