@@ -8,8 +8,8 @@ pipeline {
         stage("Build Mule Docker Dependencies") {
             steps {
                 sh '''
-                # docker build -f mule/Dockerfile -t mule-runner mule
-                docker build -f mule/Dockerfile.standalone -t mule-runner mule
+                cp /code/mule/mule-ee-distribution-standalone-4.9.3.zip ./mule
+                docker build --no-cache -f mule/Dockerfile -t mule-runner mule
                 '''
             }
         }
