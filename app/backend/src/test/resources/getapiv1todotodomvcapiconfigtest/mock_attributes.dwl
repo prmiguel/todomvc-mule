@@ -1,0 +1,30 @@
+{
+  "headers": {
+    "connection": "keep-alive",
+    "content-length": "49",
+    "cache-control": "max-age=300",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+    "content-type": "text/plain; charset=utf-8",
+    "etag": "\"679b2cd1f6560bfe904400d8f6df041dfb54756fab06287bb315518bb3958508\"",
+    "strict-transport-security": "max-age=31536000",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "deny",
+    "x-xss-protection": "1; mode=block",
+    "x-github-request-id": "3131:124BAC:196212:21E11A:6812B8DB",
+    "accept-ranges": "bytes",
+    "date": "Thu, 01 May 2025 01:40:25 GMT",
+    "via": "1.1 varnish",
+    "x-served-by": "cache-lim12121-LIM",
+    "x-cache": "HIT",
+    "x-cache-hits": "0",
+    "x-timer": "S1746063625.973130,VS0,VE128",
+    "vary": "Authorization,Accept-Encoding,Origin",
+    "access-control-allow-origin": "*",
+    "cross-origin-resource-policy": "cross-origin",
+    "x-fastly-request-id": "041605d038e793530032cfcc179d66fa9a507964",
+    "expires": "Thu, 01 May 2025 01:45:25 GMT",
+    "source-age": "0"
+  },
+  "reasonPhrase": "OK",
+  "statusCode": 200
+}

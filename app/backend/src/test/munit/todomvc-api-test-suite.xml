@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="todomvc-api-test-suite.xml" />
+	<munit:test name="todomvc-api-test-suite-get:\api\v1\todo:todomvc-api-configTest" doc:id="7219ec9f-59a4-4c2b-aed3-1805e60c0f5a" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\api\v1\todo:todomvc-api-config" doc:id="3eb1e300-d602-4f65-b642-38f54086d5ad" name="get:\api\v1\todo:todomvc-api-config"/>
+		</munit:execution>
+	</munit:test>
+
+</mule>

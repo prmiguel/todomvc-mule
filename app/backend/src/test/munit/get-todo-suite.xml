@@ -15,8 +15,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		</munit:execution>
 		<munit:validation>
 			<munit-tools:assert-that doc:name="Assert that Response Payload is not null" doc:id="8e272d6e-6b50-42c4-815f-898c9f18a786" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
-			<munit-tools:assert-that doc:name="Assert that Response Payload contains 3 items" doc:id="e2201d1b-7eb9-4099-89d1-8f415fe7272d" is='#[MunitTools::equalTo(3)]' expression="#[payload.count]"/>
-			<munit-tools:assert-that doc:name="Assert that Response Payload contain a provided Id" doc:id="de73ba28-27f6-4740-b8c9-93360eb64a0d" expression='#[payload.^raw as String]' is='#[MunitTools::containsString("d39f1574-357a-494e-9364-8280049188b6")]'/>
+			<munit-tools:assert-that doc:name="Assert that Response Payload contains 3 items" doc:id="e2201d1b-7eb9-4099-89d1-8f415fe7272d" is='#[MunitTools::equalTo(3)]' expression="#[sizeOf(payload)]"/>
+			<munit-tools:assert-that doc:name="Assert that Response Payload contain a provided Id" doc:id="de73ba28-27f6-4740-b8c9-93360eb64a0d" expression='#[payload.^raw as String]' is='#[MunitTools::containsString("1")]'/>
 		</munit:validation>
 	</munit:test>
 

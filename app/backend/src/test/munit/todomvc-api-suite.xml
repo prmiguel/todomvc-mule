@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="todomvc-api-suite.xml" />
+	<munit:test name="get:\api\v1\todo:todomvc-api-config-test" doc:id="694c8558-de14-4e96-978b-6e84ff6ffbd7" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock GET TodoMVC CSV" doc:id="e7281967-bbd6-4e31-b569-b1e78900f4d0" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fd5cc9f6-9c24-4153-85eb-3bd639e55f43" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output text/csv --- readUrl('classpath://getapiv1todotodomvcapiconfigtest/mock_payload.dwl')]" mediaType="text/csv" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getapiv1todotodomvcapiconfigtest/mock_attributes.dwl')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock GET Thrid Party TodoMVC API" doc:id="bc5af487-fdf6-4169-b029-b915f3110a7e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="270ef9ae-d2a1-4732-b234-9070dc5382aa" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getapiv1todotodomvcapiconfigtest/mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getapiv1todotodomvcapiconfigtest/mock_attributes1.dwl')]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Select" doc:id="54394e47-3dce-48c0-a7f2-6de085af3bf6" processor="db:select">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="6ba7f559-2167-4e14-a36f-d7bf0ae0812a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://getapiv1todotodomvcapiconfigtest/mock_payload2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:spy doc:name="Spy Transform Message" doc:id="9d821c4f-b7d4-482f-ba36-6cbc32a32ea4" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="17f7eb12-e4b1-410b-91f7-bc0258648dca" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="93cba459-e377-4575-ade0-a3525113397d" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload
+---
+spy_assert_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="481679d1-49df-479c-9379-327bb6f5c5ea" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload1
+---
+spy_assert_payload1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy CSV Records" doc:id="683b2424-8f5e-4d67-9e57-22d6f4f30e86" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5bb4b28f-9f80-4155-8544-b6e0dcd8e836" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="f787b6a6-36de-4bcb-a19f-cb5719e7b6d4" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload2
+---
+spy_assert_payload2::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="24b0c755-366a-43bb-ae2e-bf3d3bb5e97d" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload3
+---
+spy_assert_payload3::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+					<munit-tools:assert doc:name="Assert variables" doc:id="9ca4705a-b498-48bf-be34-c90a4b3d9e61" message="The variables do not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_variables
+---
+spy_assert_variables::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy Transform Message" doc:id="6e56a53a-2548-49fa-b602-bf54c2624fc2" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="54565dcd-954f-4b21-89b8-8bb929a5ebfc" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="4db94688-fcd8-49c3-94fb-dfb3fb63c9cf" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload4
+---
+spy_assert_payload4::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy DB Rrecords" doc:id="f2bd5f66-9ef8-4a5d-9939-bca644590441" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9e57bc85-9f23-4cbf-91fe-a8c2ab4f32da" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="756b2fc0-460e-4d00-bb2e-2de786ddbede" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload5
+---
+spy_assert_payload5::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="28033bab-152e-4149-a3c6-7f5279672ca1" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload6
+---
+spy_assert_payload6::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+					<munit-tools:assert doc:name="Assert variables" doc:id="4a050756-df27-4f34-8358-3648aa70a196" message="The variables do not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_variables1
+---
+spy_assert_variables1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy Transform Message" doc:id="d38055a8-c2a4-411e-9e4c-a1495e511456" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="34c6ca43-4494-4071-aafa-6e5d709e3b1a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="9dd7cd6e-c8cd-492a-ba5e-2b1dc43098c0" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload7
+---
+spy_assert_payload7::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="071d54c0-a8c5-4dc4-9e33-3f7d3dca106b" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload8
+---
+spy_assert_payload8::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy API Records" doc:id="da739811-7f5f-40a6-bd15-56d7ad93b9b0" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="434fe0ac-d13c-4fe4-9967-64c7d8b26e21" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="8a0a1646-5ef2-430d-9301-738e9237d639" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload9
+---
+spy_assert_payload9::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="22730e14-d5ea-4aa8-bf88-e736f5118212" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload10
+---
+spy_assert_payload10::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+					<munit-tools:assert doc:name="Assert variables" doc:id="00cef47b-68f7-437e-a998-38f46dd61f28" message="The variables do not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_variables2
+---
+spy_assert_variables2::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit-tools:spy doc:name="Spy Transform Message" doc:id="a02f8fdb-cf21-41ad-a5f7-12c249dd5c52" processor="ee:transform">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c4bd6b17-49e6-4c18-8e04-45093e1b9f5c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="0a288417-c108-4845-a5b7-8dee393a8c69" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload11
+---
+spy_assert_payload11::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:before-call>
+				<munit-tools:after-call >
+					<munit-tools:assert doc:name="Assert payload" doc:id="558693ae-df1d-4660-9c74-1b1bdf5d50e0" message="The payload does not match">
+						<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::spy_assert_payload12
+---
+spy_assert_payload12::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+					</munit-tools:assert>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit:set-event doc:name="Set Input" doc:id="dfdcd341-fae4-41a0-9d99-d1642b6e0b53" >
+				<munit:payload value="#[readUrl('classpath://getapiv1todotodomvcapiconfigtest/set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getapiv1todotodomvcapiconfigtest/set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getapiv1todotodomvcapiconfigtest/set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\api\v1\todo:todomvc-api-config" doc:id="b6a66db2-fb2a-4229-9f58-3da1977e7fbc" name="get:\api\v1\todo:todomvc-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="be930862-5e64-45f1-8fe4-ffff28cad16a" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getapiv1todotodomvcapiconfigtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="66bec931-a116-4816-8de5-8e3125e0bc5f" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="17f7eb12-e4b1-410b-91f7-bc0258648dca" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify CSV Records" doc:id="fc8a4cfb-0d0e-40a4-bf88-66298152e4ff" processor="set-variable" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5bb4b28f-9f80-4155-8544-b6e0dcd8e836" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="c337600e-411a-4764-9e93-607a91713564" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="54565dcd-954f-4b21-89b8-8bb929a5ebfc" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify DB Rrecords" doc:id="6f372250-7a7f-4c4c-9b56-1d7807176549" processor="set-variable" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="9e57bc85-9f23-4cbf-91fe-a8c2ab4f32da" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="f36f1f3d-bb41-491f-b28c-b41fb858b863" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="34c6ca43-4494-4071-aafa-6e5d709e3b1a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify API Records" doc:id="ce024ad3-cf47-4285-a25c-96f229119e4d" processor="set-variable" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="434fe0ac-d13c-4fe4-9967-64c7d8b26e21" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="f66d3976-bf08-41f8-b735-d565630246a2" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c4bd6b17-49e6-4c18-8e04-45093e1b9f5c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+</mule>
