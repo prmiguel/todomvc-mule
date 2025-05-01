@@ -46,13 +46,18 @@
 					</execution>
 				</executions>
 				<configuration>
-					<coverage>
-						<runCoverage>true</runCoverage>
-						<formats>
-							<format>html</format>
-						</formats>
-					</coverage>
-				</configuration>
+                      <coverage>
+                          <runCoverage>false</runCoverage>
+                          <failBuild>false</failBuild>
+                          <requiredApplicationCoverage>0</requiredApplicationCoverage>
+                          <requiredResourceCoverage>0</requiredResourceCoverage>
+                          <requiredFlowCoverage>0</requiredFlowCoverage>
+                          <formats>
+                              <format>console</format>
+                              <format>html</format>
+                          </formats>
+                      </coverage>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>

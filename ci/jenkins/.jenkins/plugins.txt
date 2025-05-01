@@ -22,3 +22,4 @@ job-dsl:latest
 blueocean:latest
 authorize-project:latest
 docker-workflow:592.v1001d948426c
+junit:1322.v1556dc1c59a_f
