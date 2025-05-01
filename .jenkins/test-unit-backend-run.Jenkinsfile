@@ -31,7 +31,7 @@ pipeline {
     }
     post {
         always {            
-            junit skipMarkingBuildUnstable: true, testResults: 'app/backend/target/surefire-reports/*.xml', allowEmptyResults: true
+            junit skipMarkingBuildUnstable: true, testResults: 'app/backend/target/surefire-reports/TEST-munit.*.xml', allowEmptyResults: true
         }
     }
 }
