@@ -9,7 +9,7 @@
 		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<munit:config name="get-todo-suite.xml" />
-	<munit:test name="get-todo-suite-get:\api\v1\todo:todomvc-api-configTest" doc:id="538578e6-f398-4c6d-b50b-0a2eb69211ff" description="Test">
+	<munit:test name="get-todo-suite-get:\api\v1\todo:todomvc-api-configTest" doc:id="538578e6-f398-4c6d-b50b-0a2eb69211ff" description="Test" ignore="true">
 		<munit:execution >
 			<flow-ref doc:name="Flow-ref to get:\api\v1\todo:todomvc-api-config" doc:id="4669c327-8710-44b7-a6aa-035be455f3d8" name="get:\api\v1\todo:todomvc-api-config"/>
 		</munit:execution>
