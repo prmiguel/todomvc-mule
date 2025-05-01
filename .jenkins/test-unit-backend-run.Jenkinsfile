@@ -22,7 +22,7 @@ pipeline {
                 --network app_default \
                 --user root \
                 --entrypoint="" \
-                -w /jenkins_home/jobs/test-flow-backend-run/workspace/app/backend \
+                -w /jenkins_home/jobs/test-unit-backend-run/workspace/app/backend \
                 mule-deps \
                 mvn clean test
                 '''
