@@ -31,6 +31,7 @@ pipeline {
     }
     post {
         always {
+            junit skipMarkingBuildUnstable: true, testResults: 'test/todomvc-api-bat/junit.xml', allowEmptyResults: true
             publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './test/todomvc-api-bat', reportFiles: 'index.html', reportName: 'Backend_Tests', reportTitles: '', useWrapperFileDirectly: true])
         }
     }

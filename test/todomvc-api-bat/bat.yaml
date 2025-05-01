@@ -30,5 +30,5 @@ reporters:
   #     DISABLED_FOR_CONFIGS: devx,qax # Single value or comma separated value of config filenames (without .dwl). This will disable the reporter execution for the specified configs.
   # - type: JSON
   #   outFile: /tmp/JSON.json
-  # - type: JUnit
-  #   outFile: /tmp/JUnit.xml
+    - type: JUnit
+      outFile: junit.xml
