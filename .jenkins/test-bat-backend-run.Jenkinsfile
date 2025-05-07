@@ -22,7 +22,7 @@ pipeline {
                 --network app_default \
                 --user root \
                 --entrypoint="" \
-                -w /jenkins_home/jobs/test-backend-run/workspace/test/todomvc-api-bat \
+                -w /jenkins_home/jobs/test/jobs/test-bat-backend-run/workspace/test/todomvc-api-bat \
                 todomvc-api-bat \
                 /root/.bat/bat/bin/bat --config=qax
                 '''

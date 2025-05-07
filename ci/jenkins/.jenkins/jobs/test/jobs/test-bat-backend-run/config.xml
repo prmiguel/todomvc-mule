@@ -21,7 +21,7 @@
       <submoduleCfg class="empty-list"/>
       <extensions/>
     </scm>
-    <scriptPath>.jenkins/test-backend-run.Jenkinsfile</scriptPath>
+    <scriptPath>.jenkins/test-bat-backend-run.Jenkinsfile</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>

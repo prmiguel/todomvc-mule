@@ -22,7 +22,7 @@ pipeline {
                 --network app_default \
                 --user root \
                 --entrypoint="" \
-                -w /jenkins_home/jobs/test-flow-backend-run/workspace/test/todomvc-api-test \
+                -w /jenkins_home/jobs/test/jobs/test-flow-backend-run/workspace/test/todomvc-api-test \
                 mule-deps \
                 mvn clean test
                 '''
