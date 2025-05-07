@@ -29,7 +29,7 @@
       <submoduleCfg class="empty-list"/>
       <extensions/>
     </scm>
-    <scriptPath>.jenkins/app-backend-build.Jenkinsfile</scriptPath>
+    <scriptPath>.jenkins/app-backend-docker-build.Jenkinsfile</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
