@@ -32,6 +32,7 @@ pipeline {
     post {
         always {            
             junit skipMarkingBuildUnstable: true, testResults: 'app/backend/target/surefire-reports/TEST-munit.*.xml', allowEmptyResults: true
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: './app/backend/target/site/munit/coverage', reportFiles: 'summary.html', reportName: 'Test_Coverage', reportTitles: '', useWrapperFileDirectly: true])
         }
     }
 }
