@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh '''
                 cp app/backend/pom.xml mule/pom.xml
-                docker build -f mule/Dockerfile.deps -t mule-deps mule
+                docker build -f mule/Dockerfile.deps --no-cache -t mule-deps mule
                 '''
             }
         }
