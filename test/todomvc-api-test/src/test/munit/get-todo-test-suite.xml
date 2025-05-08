@@ -10,7 +10,7 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<munit:config name="get-todo-test-suite.xml" />
 	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="23a4eec2-9dd7-4539-a5dd-fcd2f9c4e428" basePath="/api/api/v1" >
-		<http:request-connection host="192.168.0.19" port="8081" />
+		<http:request-connection host="backend" port="8081" />
 	</http:request-config>
 	<munit:test name="get-todo-test-suiteTest" doc:id="a515d6bf-4d41-41a8-97b8-cda674fc4834" >
 		<munit:execution >
