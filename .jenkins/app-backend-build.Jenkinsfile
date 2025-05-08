@@ -19,7 +19,7 @@ pipeline {
                 sh '''
                 docker run -t \
                 -v ci_jenkins_home:/jenkins_home \
-                --network app_default \
+                -v /home/prmiguel/.m6:/root/.m2 \
                 --user root \
                 --entrypoint="" \
                 -w /jenkins_home/jobs/app/jobs/app-backend-build/workspace/app/backend \
